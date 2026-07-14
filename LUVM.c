@@ -329,7 +329,7 @@ main(int argc, char *argv[])
     vm.MEM[98] = 1;
 
 
-    //vm.MEM[99] = 0b00000001;
+    vm.MEM[99] = 0b00000001;
 
     vm.RUN=1;
     vm.PC=0;
