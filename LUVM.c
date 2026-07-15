@@ -216,6 +216,7 @@ void OpRead(char opcode,VM *vm){
 int
 main(int argc, char *argv[])
 {
+
     VM vm;
     for(int i = 0; i < 0x10000; i++) {
             vm.MEM[i] = 0;
@@ -228,108 +229,13 @@ main(int argc, char *argv[])
             vm.DEV[i] = 0;
         }
     vm.stkcount=0;
-    vm.MEM[0] = 0b00001100;
-    vm.MEM[1] = 1;
-    vm.MEM[2] = 0x68;
-    vm.MEM[3] = 0b00001100;
-    vm.MEM[4] = 2;
-    vm.MEM[5] = 0x01;
-    vm.MEM[6] = 0b00001101;
-    vm.MEM[7] = 2;
-    vm.MEM[8] = 1;
-    vm.MEM[9] = 0b00001100;
-    vm.MEM[10] = 1;
-    vm.MEM[11] = 0x65;
-    vm.MEM[12] = 0b00001100;
-    vm.MEM[13] = 2;
-    vm.MEM[14] = 0x01;
-    vm.MEM[15] = 0b00001101;
-    vm.MEM[16] = 2;
-    vm.MEM[17] = 1;
-    vm.MEM[18] = 0b00001100;
-    vm.MEM[19] = 1;
-    vm.MEM[20] = 0x6C;
-    vm.MEM[21] = 0b00001100;
-    vm.MEM[22] = 2;
-    vm.MEM[23] = 0x01;
-    vm.MEM[24] = 0b00001101;
-    vm.MEM[25] = 2;
-    vm.MEM[26] = 1;
-    vm.MEM[27] = 0b00001100;
-    vm.MEM[28] = 1;
-    vm.MEM[29] = 0x6C;
-    vm.MEM[30] = 0b00001100;
-    vm.MEM[31] = 2;
-    vm.MEM[32] = 0x01;
-    vm.MEM[33] = 0b00001101;
-    vm.MEM[34] = 2;
-    vm.MEM[35] = 1;
-    vm.MEM[36] = 0b00001100;
-    vm.MEM[37] = 1;
-    vm.MEM[38] = 0x6F;
-    vm.MEM[39] = 0b00001100;
-    vm.MEM[40] = 2;
-    vm.MEM[41] = 0x01;
-    vm.MEM[42] = 0b00001101;
-    vm.MEM[43] = 2;
-    vm.MEM[44] = 1;
-    vm.MEM[45] = 0b00001100;
-    vm.MEM[46] = 1;
-    vm.MEM[47] = 0x20;
-    vm.MEM[48] = 0b00001100;
-    vm.MEM[49] = 2;
-    vm.MEM[50] = 0x01;
-    vm.MEM[51] = 0b00001101;
-    vm.MEM[52] = 2;
-    vm.MEM[53] = 1;
-    vm.MEM[54] = 0b00001100;
-    vm.MEM[55] = 1;
-    vm.MEM[56] = 0x77;
-    vm.MEM[57] = 0b00001100;
-    vm.MEM[58] = 2;
-    vm.MEM[59] = 0x01;
-    vm.MEM[60] = 0b00001101;
-    vm.MEM[61] = 2;
-    vm.MEM[62] = 1;
-    vm.MEM[63] = 0b00001100;
-    vm.MEM[64] = 1;
-    vm.MEM[65] = 0x6F;
-    vm.MEM[66] = 0b00001100;
-    vm.MEM[67] = 2;
-    vm.MEM[68] = 0x01;
-    vm.MEM[69] = 0b00001101;
-    vm.MEM[70] = 2;
-    vm.MEM[71] = 1;
-    vm.MEM[72] = 0b00001100;
-    vm.MEM[73] = 1;
-    vm.MEM[74] = 0x72;
-    vm.MEM[75] = 0b00001100;
-    vm.MEM[76] = 2;
-    vm.MEM[77] = 0x01;
-    vm.MEM[78] = 0b00001101;
-    vm.MEM[79] = 2;
-    vm.MEM[80] = 1;
-    vm.MEM[81] = 0b00001100;
-    vm.MEM[82] = 1;
-    vm.MEM[83] = 0x6C;
-    vm.MEM[84] = 0b00001100;
-    vm.MEM[85] = 2;
-    vm.MEM[86] = 0x01;
-    vm.MEM[87] = 0b00001101;
-    vm.MEM[88] = 2;
-    vm.MEM[89] = 1;
-    vm.MEM[90] = 0b00001100;
-    vm.MEM[91] = 1;
-    vm.MEM[92] = 0x64;
-    vm.MEM[93] = 0b00001100;
-    vm.MEM[94] = 2;
-    vm.MEM[95] = 0x01;
-    vm.MEM[96] = 0b00001101;
-    vm.MEM[97] = 2;
-    vm.MEM[98] = 1;
 
-
-    vm.MEM[99] = 0b00000001;
+    FILE *f;
+	if(argc < 2)
+		return fprintf(stdout, "usage: %s file.lun\n", argv[0]);
+	else if(!(f = fopen(argv[1], "rb")))
+		return fprintf(stderr, "%s: %s not found.\n", argv[0], argv[1]);
+	fread(&vm.MEM[0x00], 0xff00, 1, f), fclose(f);
 
     vm.RUN=1;
     vm.PC=0;
